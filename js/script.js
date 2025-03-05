@@ -323,13 +323,8 @@ window.addEventListener('DOMContentLoaded', () => {
         },4000);
     }
 
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: "POST",
-        body: JSON.stringify({name: 'Alex'}),
-        headers: {
-            'Content-type': 'application/json'
-        }
-    })
+    // fetch('db.json')
+    fetch('http://localhost:3000/menu')
         .then((response) => response.json())
         .then((json) => console.log(json));
 });
