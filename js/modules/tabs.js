@@ -1,8 +1,7 @@
-		// Tabs 
-function tabs() {
-	const tabs = document.querySelectorAll('.tabheader__item'),
-	tabsContent = document.querySelectorAll('.tabcontent'),
-	tabsParent = document.querySelector('.tabheader__items');
+function tabs(tabsSelector, tabsContentSelector, tabsPerentSelector, activeClass) {
+	let tabs = document.querySelectorAll(tabsSelector),
+	tabsContent = document.querySelectorAll(tabsContentSelector),
+	tabsParent = document.querySelector(tabsPerentSelector);
 
   function hideTabContent() {
 	  tabsContent.forEach(item => {
@@ -11,14 +10,14 @@ function tabs() {
 	  });
 
 	  tabs.forEach(item => {
-		  item.classList.remove('tabheader__item_active');
+		  item.classList.remove(activeClass);
 	  });
   }
 
   function showTabContent(i = 0) { // параметр по умолчанию 
 	  tabsContent[i].classList.add('show', 'fade');
 	  tabsContent[i].classList.remove('hide');
-	  tabs[i].classList.add('tabheader__item_active');
+	  tabs[i].classList.add(activeClass);
   }
 
   hideTabContent();
@@ -27,7 +26,7 @@ function tabs() {
   tabsParent.addEventListener('click', (event) => {
 	  const target = event.target;
 
-	  if (target && target.classList.contains('tabheader__item')) {
+	  if (target && target.classList.contains(tabsSelector.slice(1))) {
 		  tabs.forEach((item, i) => {
 			  if (target == item) { // если єлемент который мы сейчас перебираем в цикле будет совпадать с элетементом на который мы кликнули , если один и тот же элемент мы скрывает осальные и показываем только нужный таб 
 				  hideTabContent();
@@ -38,4 +37,4 @@ function tabs() {
   }) 
 }
 
-module.exports = tabs;
+export default tabs;
