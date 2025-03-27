@@ -3,22 +3,32 @@
 let path = require('path');
 
 module.exports = {
-  mode: 'development', // режим разработки : либо режим production - режим создания продукта : для конечной сборки продуктов
-                    // develpment для быстрой сборки и разработки
-
-  entry: './js/script.js', // тот файл с которого мы будет начинать 
-                                // в этом файле записываются все зависимости и стандарт
-                                // если нужно будет использовать несколько файлов
-                                // нужно просто создать объект
-  output: { // файл выхода  
-    filename: 'bundle.js', // готовый файл его имя
-    path: __dirname + '/js' // куда мы его складываем готовый
+  mode: 'production',
+  entry: './js/script.js',
+  output: {
+    filename: 'bundle.js',
+    path: __dirname + '/js'
   },
-  watch: true, // если стоит в тру , вебпек после того как был вызван 
-                // будет отслеживать изменения файлов
-                //  и в автоматическом режиме собирать после каждого сохранения
+  watch: true,
 
-  devtool: "source-map", // соурс мап , 
+  devtool: "source-map",
 
-  module: {}
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', {
+                debug: true,
+                corejs: 3,
+                useBuiltIns: "usage"
+            }]]
+          }
+        }
+      }
+    ]
+  }
 };
